@@ -1,0 +1,162 @@
+@import "tailwindcss";
+      * { font-family: 'Inter', sans-serif; }
+
+        /* NAV */
+        .logo-startup { font-weight: 300; color: #111; }
+        .logo-crash   { font-weight: 800; color: #111; }
+        .logo-lab     { font-weight: 300; color: #111; }
+
+        /* HERO */
+        .hero-grid {
+          background-image: linear-gradient(rgba(200,210,230,.15) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(200,210,230,.15) 1px, transparent 1px);
+          background-size: 40px 40px;
+        }
+
+        /* COIN */
+        .coin {
+          width: 280px; height: 280px;
+          background: radial-gradient(circle at 35% 35%, #3a4a6b, #0d1b3e 60%, #060f24);
+          border-radius: 50%;
+          box-shadow: 0 0 0 10px #1a2a4a, 0 0 0 14px #0d1b3e,
+                      20px 30px 60px rgba(0,0,0,.6), -6px -6px 20px rgba(255,255,255,.04);
+          display: flex; align-items: center; justify-content: center;
+          position: relative; overflow: hidden;
+        }
+        .coin::before {
+          content:''; position:absolute; inset:0; border-radius:50%;
+          background: linear-gradient(135deg, rgba(255,255,255,.08) 0%, transparent 60%);
+        }
+        .coin-x {
+          font-size: 120px; font-weight: 900; color: transparent;
+          background: linear-gradient(160deg, #ff9f3f 0%, #f06000 55%, #c04000 100%);
+          -webkit-background-clip: text; background-clip: text;
+          filter: drop-shadow(4px 6px 10px rgba(0,0,0,.7));
+          line-height: 1; transform: perspective(400px) rotateX(8deg);
+        }
+        .coin-wrap { position:relative; }
+        .coin-wrap::before, .coin-wrap::after {
+          content:''; position:absolute; border-radius:50%; background: #f07000; opacity:.8;
+        }
+        .coin-wrap::before { width:12px; height:12px; top:30px; right:10px; }
+        .coin-wrap::after  { width:8px;  height:8px;  bottom:50px; left:10px; }
+
+        /* DARK SECTION */
+        .dark-section { background: #0b0f1a; }
+
+        /* TESTIMONIAL CARDS */
+        .tcard {
+          background: #151a2e; border:1px solid #1e2540; border-radius:14px;
+          padding:20px; position:relative;
+        }
+        .badge-gold {
+          background: linear-gradient(135deg,#c8a020,#f0c840); color:#fff; font-size:9px; font-weight:700;
+          border-radius:4px; padding:2px 7px; position:absolute; top:14px; right:14px;
+        }
+        .badge-silver {
+          background: linear-gradient(135deg,#7a8aa0,#aabbd0); color:#fff; font-size:9px; font-weight:700;
+          border-radius:4px; padding:2px 7px; position:absolute; top:14px; right:14px;
+        }
+        .stars { color:#f5a623; font-size:11px; letter-spacing:1px; }
+        .tcard .quote { color:#6b7bb0; font-size:22px; line-height:1; }
+        .tcard .ttext { color:#c8d0e8; font-size:13px; line-height:1.55; margin:6px 0; }
+        .tcard .tname { color:#8898c8; font-size:12px; font-weight:600; }
+        .tcard .trole { color:#5060a0; font-size:11px; }
+        .avatar {
+          width:34px; height:34px; border-radius:50%;
+          background:linear-gradient(135deg,#3a4a7a,#1a2050);
+          display:flex; align-items:center; justify-content:center;
+          color:#7888c0; font-weight:700; font-size:12px;
+        }
+
+        /* ORANGE BANNER */
+        .orange-banner {
+          background: linear-gradient(90deg, #f07000 0%, #ff8c00 50%, #f06000 100%);
+          border-radius: 16px;
+        }
+
+        /* BOOKSHELF 3D */
+        .shelf-scene {
+          perspective: 1500px;
+          perspective-origin: 50% -30%;
+        }
+        .book {
+          position: relative;
+          transform-style: preserve-3d;
+          transform: rotateY(-20deg) rotateX(0deg);
+          transition: transform 0.5s ease-out;
+        }
+        .book-wrapper:hover .book {
+          transform: rotateY(-45deg) translateZ(20px);
+        }
+        .book-top {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 30px;
+          background: #0d1624;
+          transform: rotateX(90deg) translateZ(15px);
+          background-image: linear-gradient(90deg, transparent 90%, rgba(0,0,0,0.1) 100%);
+          background-size: 3px 100%;
+          border-radius: 2px 2px 0 0;
+        }
+        .book-spine {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 30px;
+          background: #0d1624;
+          background: #f7f7f7;
+          transform: rotateY(-90deg) translateZ(15px);
+          box-shadow: inset -10px 0 20px rgba(0,0,0,0.3);
+          border-right: 1px solid rgba(255,255,255,0.1);
+          border-radius: 2px 0 0 2px;
+        }
+        .shelf-base {
+          background: linear-gradient(to bottom, #1e1b18, #000000);
+          height: 8px;
+          width: 100%;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+        }
+
+        /* BLACKBOX CARDS */
+        .bcard {
+          background:#151c30; border:1px solid #1e2845; border-radius:16px;
+          padding:22px; flex:1; min-width:0;
+        }
+        .badge-fail {
+          background:#ffe0e0; color:#cc2020; border:1px solid #ffaaaa;
+          font-size:11px; font-weight:700; border-radius:20px; padding:3px 12px;
+          display:inline-flex; align-items:center; gap:5px;
+        }
+        .badge-success {
+          background:#d8ffe0; color:#0a8030; border:1px solid #80dd90;
+          font-size:11px; font-weight:700; border-radius:20px; padding:3px 12px;
+          display:inline-flex; align-items:center; gap:5px;
+        }
+        .badge-progress {
+          background:#fff8d8; color:#7a6000; border:1px solid #e0cc60;
+          font-size:11px; font-weight:700; border-radius:20px; padding:3px 12px;
+          display:inline-flex; align-items:center; gap:5px;
+        }
+        .chart-red  { stroke:#e03030; }
+        .chart-green{ stroke:#20cc50; }
+        .prog-bar {
+          height:6px; background:#1e2845; border-radius:3px; margin-top:8px; overflow:hidden;
+        }
+        .prog-fill {
+          height:100%; background:linear-gradient(90deg,#f07000,#ff8c00); border-radius:3px;
+        }
+
+        /* FLOATING BUTTON */
+        .floating-btn {
+          position:fixed; bottom:28px; right:28px; z-index:100;
+          background:linear-gradient(90deg,#f07000,#ff8c00);
+          color:#fff; font-weight:700; font-size:14px;
+          border-radius:30px; padding:14px 24px;
+          box-shadow:0 4px 20px rgba(240,112,0,.5);
+          cursor:pointer; display:flex; align-items:center; gap:6px;
+        }
