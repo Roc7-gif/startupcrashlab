@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function floatingBtn() {
+export default function FloatingBtn() {
   return (
   <div className="floating-btn">
-        Diagnostique Rapide
+      <a href="#programme" className="no-underline text-white min-w-max  flex gap-1 content-center items-center ">
+         Diagnostique Rapide
         <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
           <path
             d="M6 3l5 5-5 5"
@@ -13,6 +14,7 @@ export default function floatingBtn() {
             strokeLinejoin="round"
           />
         </svg>
+       </a>
       </div>
   );
 }
