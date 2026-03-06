@@ -1,12 +1,10 @@
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../../store/authStore";
 
-export default function HeroSection({
-  setIsLoginModalOpen,
-}) {
-  const isauth = useAuthStore.getState().access
-    const logout =useAuthStore.getState().logout
-  
-  console.log(isauth)
+export default function HeroSection({ setIsLoginModalOpen }) {
+const logout = useAuthStore((state) => state.logout);
+const isauth = useAuthStore((state) => state.access);
+
+  // console.log(isauth);
   return (
     <>
       <section className="bg-white hero-grid min-h-screen relative overflow-hidden">
@@ -44,20 +42,22 @@ export default function HeroSection({
             {/* <a href="#" className="text-[14px] text-gray-700 font-medium hover:text-orange-500 transition-colors">
               Blog
             </a> */}
-            {!isauth &&
+            {!isauth && (
               <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="text-[14px] font-semibold text-orange-500 border border-orange-500 rounded-md px-5 py-2 hover:bg-orange-500 hover:text-white transition-all cursor-pointer"
-            >
-              Se connecter
-              </button>}
-            {isauth &&
+                onClick={() => setIsLoginModalOpen(true)}
+                className="text-[14px] font-semibold text-orange-500 border border-orange-500 rounded-md px-5 py-2 hover:bg-orange-500 hover:text-white transition-all cursor-pointer"
+              >
+                Se connecter
+              </button>
+            )}
+            {isauth && (
               <button
-              onClick={() => logout()}
-              className="text-[14px] font-semibold text-red-500 border border-red-500 rounded-md px-5 py-2 hover:bg-red-500 hover:text-white transition-all cursor-pointer"
-            >
-              Se déconnecter
-            </button>}
+                onClick={() => logout()}
+                className="text-[14px] font-semibold text-red-500 border border-red-500 rounded-md px-5 py-2 hover:bg-red-500 hover:text-white transition-all cursor-pointer"
+              >
+                Se déconnecter
+              </button>
+            )}
           </div>
         </nav>
 
@@ -78,18 +78,22 @@ export default function HeroSection({
               <br className="hidden sm:block" />
               passer de l'idée à la rentabilité.
             </p>
-            {!isauth && <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white font-bold text-[15px] px-7 py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 fade-in-up delay-600"
-            >
-              Démarrer le Test n°1 – Gratuit
-            </button>}
-             {isauth && <a
-             href="#programme"
-              className="bg-orange-500 cursor-pointer no-underline hover:bg-orange-600 text-white font-bold text-[15px] px-7 py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 fade-in-up delay-600"
-            >
-              Démarrer le Test n°1 – Gratuit
-            </a>}
+            {!isauth && (
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white font-bold text-[15px] px-7 py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 fade-in-up delay-600"
+              >
+                Démarrer le Test n°1 – Gratuit
+              </button>
+            )}
+            {isauth && (
+              <a
+                href="#programme"
+                className="bg-orange-500 cursor-pointer no-underline hover:bg-orange-600 text-white font-bold text-[15px] px-7 py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 fade-in-up delay-600"
+              >
+                Démarrer le Test n°1 – Gratuit
+              </a>
+            )}
           </div>
 
           {/* Image à droite - inchangée */}

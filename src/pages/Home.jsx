@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import HeroSection from "../components/HeroSection";
-import BookshelfSection from "../components/BookshelfSection";
-import BlackboxSection from "../components/BlackboxSection";
-import PourquoiSection from "../components/PourquoiSection";
-import Programme from "../components/Programe";
-import WorkingSection from "../components/WorkingSection";
-import ForWhat from "../components/ForWhat";
-import Impact from "../components/Impact";
-import Testimonials from "../components/Testimonials";
-import Coach from "../components/Coach";
-import Cta from "../components/Cta";
-import Footer from "../components/footer";
-import FloatingBtn from "../components/floatingBtn";
-import Members from "../components/Members";
+import HeroSection from "../components/homeComponents/HeroSection";
+import BookshelfSection from "../components/homeComponents/BookshelfSection";
+import BlackboxSection from "../components/homeComponents/BlackboxSection";
+import PourquoiSection from "../components/homeComponents/PourquoiSection";
+import Programme from "../components/homeComponents/Programe";
+import WorkingSection from "../components/homeComponents/WorkingSection";
+import ForWhat from "../components/homeComponents/ForWhat";
+import Impact from "../components/homeComponents/Impact";
+import Testimonials from "../components/homeComponents/Testimonials";
+import Coach from "../components/homeComponents/Coach";
+import Cta from "../components/homeComponents/Cta";
+import Footer from "../components/homeComponents/footer";
+import FloatingBtn from "../components/others/floatingBtn";
+import Members from "../components/homeComponents/Members";
 import { useLogin, useRegister } from "../api/auth";
 import { useAuthStore } from "../store/authStore";
+import Loader from "../components/others/loader";
+import ErrorDisplayer from "../components/homeComponents/Error";
 
 export default function Home() {
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function Home() {
       });
     });
   }, []);
+
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -42,9 +45,12 @@ export default function Home() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
   const [loginErrors, setLoginErrors] = useState({});
-
+  const login = useAuthStore.getState().login;
+  const { mutate, isPending: isRegisterPending } = useRegister(formData);
+  const { mutate: loginmutate, isPending: isloginPending } = useLogin(formData);
   // Gestionnaire pour le formulaire d'inscription
   const handleInputChange = (e) => {
     setFormData({
@@ -74,9 +80,7 @@ export default function Home() {
   };
 
   // Soumission du formulaire d'inscription
-  const login = useAuthStore.getState().login;
-  const { mutate } = useRegister(formData);
-  const { mutate: loginmutate } = useLogin(formData);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -102,27 +106,65 @@ export default function Home() {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      mutate(
-        formData,
-        {
-          onSuccess: (data) => {
+      mutate(formData, {
+        onSuccess: (data) => {
             console.log(data);
-            loginmutate(formData, {
-              onSuccess: (data) => {
-                console.log(data);
-
-                login(data);
-              },
-            });
-          },
+              if (data.email) {
+                loginmutate(formData, {
+            onSuccess: (data) => {
+             
+              // console.log(data);
+              if (data.access) {
+                 login(data);
+                setIsSignupModalOpen(false);
+                setFormData({   email: "",    password: "",    password_confirm: "",  });
+              } else if (data.response) {
+                console.log(data.response?.data.detail);
+                const message =
+                  data.response?.data?.detail || "Erreur Inconnue";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+              } else {
+                const message = "Erreur Réseau ";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+              }
+            },
+                });
+              } else if (data.response) {
+                console.log(data.response);
+                const message =
+                  data.response?.data?.detail || "Erreur Inconnue";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+              } else {
+                const message = "Erreur Réseau ";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+          }
+          
+         
         },
-      );
-
-      //   setIsSignupModalOpen(false);
-      // Réinitialiser le formulaire
-      //   setFormData({ email: "", password: "", confirmPassword: "" });
-      // Afficher un message de succès (optionnel)
-      //   alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+        onError: (res) => {
+          console.log(JSON.parse(res.request.response).email[0])
+           const message =
+                  JSON.parse(res.request.response).email[0] || "Erreur Inconnue";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+        }
+       
+        // onError: (res) => {},
+      });
     }
   };
 
@@ -144,60 +186,83 @@ export default function Home() {
     if (Object.keys(newErrors).length > 0) {
       setLoginErrors(newErrors);
     } else {
-      console.log("Connexion:", loginData);
-      setIsLoginModalOpen(false);
-      // Réinitialiser le formulaire
-      setLoginData({ email: "", password: "" });
-      // Afficher un message de succès (optionnel)
-      alert("Connexion réussie !");
+
+      loginmutate(loginData, {
+        onSuccess: (data) => {
+            console.log(data);
+              if (data.access) {
+                 login(data);
+                setIsLoginModalOpen(false);
+                setLoginData({ email: "", password: "" });
+              } else if (data.response) {
+                console.log(data.response?.data.detail);
+                const message =
+                  data.response?.data?.detail || "Erreur Inconnue";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+              } else {
+                const message = "Erreur Réseau ";
+                setError(message);
+                setTimeout(() => {
+                  setError("");
+                }, 3000);
+              }
+         
+         
+        },
+      });
     }
-    };
-    
+  };
+
   return (
     <>
+      {error && <ErrorDisplayer error={error} />}
+
       <HeroSection
         setIsLoginModalOpen={setIsLoginModalOpen}
         setIsSignupModalOpen={setIsSignupModalOpen}
       />
 
-      {/* Transition douce avec gradient */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      {/* Transition douce avec linear */}
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Programme setIsLoginModalOpen={setIsLoginModalOpen} />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <BlackboxSection />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <BookshelfSection />
       <Members />
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <PourquoiSection />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <WorkingSection />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <ForWhat />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Impact />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Testimonials />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Coach />
 
-      <div className="h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+      <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Cta />
 
@@ -284,7 +349,8 @@ export default function Home() {
               type="submit"
               className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105"
             >
-              Créer mon compte
+              {isRegisterPending && <Loader />}
+              {!isRegisterPending && "Créer mon compte"}
             </button>
           </form>
 
@@ -374,14 +440,11 @@ export default function Home() {
             </div>
              */}
             <button
-              onClick={() => {
-                setIsLoginModalOpen(false);
-                setIsSignupModalOpen(true);
-              }}
               type="submit"
               className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105"
             >
-              Se connecter
+              {isloginPending && <Loader />}
+              {!isloginPending && "Se connecter"}
             </button>
           </form>
 

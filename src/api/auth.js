@@ -38,8 +38,8 @@ export function useLogin() {
           email: email,
         };
       } catch (error) {
-        console.error("Erreur login :", error.response?.data || error.message);
-        throw error;
+        // console.error("Erreur login :", error.response?.data || error.message);
+        return error;
       }
     },
   });
