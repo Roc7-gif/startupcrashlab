@@ -123,7 +123,12 @@ export default function Programme({ setIsLoginModalOpen }) {
         },
       );
       //
-    } 
+    } else {
+      setError(' Veuillez saisir votre date de réservation ')
+        setTimeout(() => {
+                setError("");
+              }, 3000);
+    }
   };
   const isauth = useAuthStore.getState().access;
 
