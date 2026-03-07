@@ -1,2 +1,2 @@
 # startupcrashlab
-<-- Django project -->
+## Django 
