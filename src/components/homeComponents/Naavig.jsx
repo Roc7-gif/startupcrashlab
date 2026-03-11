@@ -58,20 +58,20 @@ export const Nav = () => {
                              <NavLink to="/" onClick={handleLinkClick}isActive={currentPath === "/"}>
                                     Accueil
                                 </NavLink>
-                                <NavLink to="/protocoles" onClick={handleLinkClick}isActive={currentPath === "/protocoles"}>
+                                <NavLink too="/protocoles" onClick={handleLinkClick}isActive={currentPath === "/protocoles"}>
                                     Protocoles
                                 </NavLink>
-                                <NavLink to="/crashIndex" onClick={handleLinkClick}isActive={currentPath === "/crashIndex"}>
+                                <NavLink too="/crashIndex" onClick={handleLinkClick}isActive={currentPath === "/crashIndex"}>
                                     CrashIndex
                                 </NavLink>
-                                <NavLink to="/ressources" onClick={handleLinkClick} isActive={currentPath === "/ressources"}>
+                                <NavLink too="/ressources" onClick={handleLinkClick} isActive={currentPath === "/ressources"}>
                                     Ressources
                                 </NavLink>
-                                <NavLink to="/equipes" onClick={handleLinkClick} isActive={currentPath === "/equipes"}>
+                                <NavLink too="/equipes" onClick={handleLinkClick} isActive={currentPath === "/equipes"}>
                                     Equipe
                                 </NavLink>
                             </>
-                        <NavLink to="/contact" onClick={handleLinkClick} isActive={currentPath === "/contact"}>
+                        <NavLink too="/contact" onClick={handleLinkClick} isActive={currentPath === "/contact"}>
                             Contact
                         </NavLink>
                         
@@ -114,24 +114,24 @@ export const Nav = () => {
                                         {/* <span className="text-3xl">📋</span> */}
                                         <span>Accueil</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to = '/protocoles' onClick={handleLinkClick} delay={0.1} isActive={currentPath === "/protocoles"}>
+                                    <MobileNavLink too= '/protocoles' onClick={handleLinkClick} delay={0.1} isActive={currentPath === "/protocoles"}>
                                         {/* <span className="text-3xl">📋</span> */}
                                         <span>Protocoles</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to="/crashIndex" onClick={handleLinkClick} delay={0.2}  isActive={currentPath === "/crashIndex"}>
+                                    <MobileNavLink too="/crashIndex" onClick={handleLinkClick} delay={0.2}  isActive={currentPath === "/crashIndex"}>
                                         {/* <span className="text-3xl">📊</span> */}
                                         <span>CrashIndex</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to="/ressources" onClick={handleLinkClick} delay={0.3}  isActive={currentPath === "/ressources"}>
+                                    <MobileNavLink too="/ressources" onClick={handleLinkClick} delay={0.3}  isActive={currentPath === "/ressources"}>
                                         {/* <span className="text-3xl">📚</span> */}
                                         <span>Ressources</span>
                                     </MobileNavLink>
-                                <MobileNavLink to="/equipes" onClick={handleLinkClick} delay={0.4} isActive={currentPath === "/equipes"}>
+                                <MobileNavLink too="/equipes" onClick={handleLinkClick} delay={0.4} isActive={currentPath === "/equipes"}>
                                         {/* <span className="text-3xl">👥</span> */}
                                         <span>Equipe</span>
                                     </MobileNavLink>
                                 </>
-                            <MobileNavLink to="/contact" onClick={handleLinkClick} delay={0.5} isActive={currentPath === "/contact"}>
+                            <MobileNavLink too="/contact" onClick={handleLinkClick} delay={0.5} isActive={currentPath === "/contact"}>
                                 {/* <span className="text-3xl">📬</span> */}
                                 <span>Contact</span>
                             </MobileNavLink>
