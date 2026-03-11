@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Réservation</title>
+</head>
+
+<body style="margin:0;padding:0;background:#f6f6f6;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellspacing="0" cellpadding="0" style="background:#f6f6f6;padding:40px 0;">
+<tr>
+<td align="center">
+
+<table width="600" style="background:white;border-radius:10px;overflow:hidden">
+
+<!-- HEADER -->
+<tr>
+<td style="background:#ffffff;padding:30px;text-align:center;border-bottom:1px solid #eee">
+
+<span style="font-size:22px;font-weight:bold;color:#111">
+startup
+<span style="color:#f07000">crash</span>
+lab
+</span>
+
+</td>
+</tr>
+
+<!-- HERO -->
+<tr>
+<td style="padding:40px;text-align:center">
+
+<h1 style="margin:0;font-size:28px;color:#222">
+Nouvelle Réservation 
+</h1>
+
+<p style="color:#666;font-size:16px;margin-top:10px">
+Voir réservation a été enrégistrer avec succès
+</p>
+
+</td>
+</tr>
+
+<!-- USER INFO -->
+<tr>
+<td style="padding:0 40px">
+
+<table width="100%" style="border-collapse:collapse">
+
+
+
+<tr>
+<td style="padding:10px 0;color:#888">Email</td>
+<td style="padding:10px 0;font-weight:bold">{{ email }}</td>
+</tr>
+<tr>
+<td style="padding:10px 0;color:#888">Téléphone</td>
+<td style="padding:10px 0;font-weight:bold">{{ phone }}</td>
+</tr>
+<tr>
+<td style="padding:10px 0;color:#888">Date de réservation : </td>
+<td style="padding:10px 0;font-weight:bold">{{ date }}</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+<!-- PACK -->
+<tr>
+<td style="padding:40px">
+
+<div style="
+background:#fff7f0;
+border:1px solid #ffd7b5;
+border-radius:8px;
+padding:25px;
+">
+
+<h2 style="margin-top:0;color:#f07000">
+{{ program.pack }}
+</h2>
+
+<p style="color:#555;font-size:15px">
+{{ program.objective }}
+</p>
+
+<p style="font-weight:bold;margin-top:20px">
+Livrables :
+</p>
+
+<ul style="padding-left:18px;color:#444">
+{% for item in program.deliverables %}
+<li style="margin-bottom:6px">{{ item }}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+</td>
+</tr>
+
+
+
+<!-- FOOTER -->
+<tr>
+<td style="background:#fafafa;padding:20px;text-align:center;font-size:13px;color:#999">
+
+Startup Crash Lab • Validation scientifique de startups
+
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
