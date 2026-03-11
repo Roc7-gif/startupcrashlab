@@ -4,25 +4,32 @@ on:
   push:
     branches:
       - main
-
+  workflow_dispatch: # Permet de lancer manuellement depuis l'onglet Actions
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-   
-    - name: Récupérer le code
-      uses: actions/checkout@v4
-    - name: Forcer le redémarrage de l'app sur LWS
-      working-directory: backend/
-      run: |
-            mkdir -p tmp
-            touch tmp/restart.txt
-    - name: Déployer le code Python vers LWS (Dossier /api)
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-          server:  ${{ secrets.FTP_SERVER }}
+    
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Empêche l'erreur 128 en récupérant tout l'historique
+
+      - name: Forcer le redémarrage de l'app sur LWS
+        # On vérifie si le dossier existe avant de faire le 'cd'
+        run: |
+          cd backend/
+          mkdir -p tmp
+          touch tmp/restart.txt
+
+      - name: Déployer le code Python vers LWS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: backend/
+          # local-dir doit se terminer par / pour éviter les erreurs de chemin
+          local-dir: ./backend/
+          # server-dir DOIT se terminer par / (très important pour cette action)
           server-dir: ${{ secrets.FTP_BACKEND_URL }}
