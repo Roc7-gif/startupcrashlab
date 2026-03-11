@@ -55,19 +55,19 @@ export const Nav = () => {
                     {/* Menu Desktop */}
                     <div className="hidden md:flex items-center gap-8">
                         <>
-                             <NavLink to="/" onClick={handleLinkClick}>
+                             <NavLink to="/" onClick={handleLinkClick}isActive={currentPath === "/"}>
                                     Accueil
                                 </NavLink>
-                                <NavLink to="/protocoles" onClick={handleLinkClick}>
+                                <NavLink to="/protocoles" onClick={handleLinkClick}isActive={currentPath === "/protocoles"}>
                                     Protocoles
                                 </NavLink>
-                                <NavLink to="/crashIndex" onClick={handleLinkClick}>
+                                <NavLink to="/crashIndex" onClick={handleLinkClick}isActive={currentPath === "/crashIndex"}>
                                     CrashIndex
                                 </NavLink>
-                                <NavLink to="/ressources" onClick={handleLinkClick}>
+                                <NavLink to="/ressources" onClick={handleLinkClick} isActive={currentPath === "/ressources"}>
                                     Ressources
                                 </NavLink>
-                                <NavLink to="/equipes" onClick={handleLinkClick}>
+                                <NavLink to="/equipes" onClick={handleLinkClick} isActive={currentPath === "/equipes"}>
                                     Equipe
                                 </NavLink>
                             </>
@@ -110,23 +110,23 @@ export const Nav = () => {
                     <div className="flex flex-col h-full p-8 pt-12">
                         <div className="flex flex-col gap-6">
                             <>
-                                  <MobileNavLink to = '/' onClick={handleLinkClick} delay={0.1}>
+                                  <MobileNavLink to = '/' onClick={handleLinkClick} delay={0.1} isActive={currentPath === "/"}>
                                         {/* <span className="text-3xl">📋</span> */}
                                         <span>Accueil</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to = '/protocoles' onClick={handleLinkClick} delay={0.1}>
+                                    <MobileNavLink to = '/protocoles' onClick={handleLinkClick} delay={0.1} isActive={currentPath === "/protocoles"}>
                                         {/* <span className="text-3xl">📋</span> */}
                                         <span>Protocoles</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to="/crashIndex" onClick={handleLinkClick} delay={0.2}>
+                                    <MobileNavLink to="/crashIndex" onClick={handleLinkClick} delay={0.2}  isActive={currentPath === "/crashIndex"}>
                                         {/* <span className="text-3xl">📊</span> */}
                                         <span>CrashIndex</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to="/ressources" onClick={handleLinkClick} delay={0.3}>
+                                    <MobileNavLink to="/ressources" onClick={handleLinkClick} delay={0.3}  isActive={currentPath === "/ressources"}>
                                         {/* <span className="text-3xl">📚</span> */}
                                         <span>Ressources</span>
                                     </MobileNavLink>
-                                    <MobileNavLink to="/equipes" onClick={handleLinkClick} delay={0.4}>
+                                <MobileNavLink to="/equipes" onClick={handleLinkClick} delay={0.4} isActive={currentPath === "/equipes"}>
                                         {/* <span className="text-3xl">👥</span> */}
                                         <span>Equipe</span>
                                     </MobileNavLink>
