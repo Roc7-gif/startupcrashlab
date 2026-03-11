@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*$**z=s+-3sptkfi!ry22nlj8#p01@95y6#f%d_-5jzer6d7hp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1' , "localhost" , 'startupcrashlab.pythonanywhere.com' , "startupcrushlab.com/api"]
+ALLOWED_HOSTS = ['127.0.0.1' , "localhost" , 'startupcrashlab.pythonanywhere.com' , "startupcrushlab.com"]
 
 
 # settings.py
