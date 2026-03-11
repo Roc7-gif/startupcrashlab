@@ -1,4 +1,5 @@
 // import { useAuthStore } from "../../store/authStore";
+import { Link } from "react-router-dom";
 import { Nav } from "./Naavig";
 
 export default function HeroSection({ setIsLoginModalOpen }) {
@@ -44,12 +45,15 @@ export default function HeroSection({ setIsLoginModalOpen }) {
               </button>
             )}
             {isauth && (
-              <a
-                href="#protocoles"
+              <Link
+                
+                target="_blank"
+                
+                to="https://startup-quick-test.pages.dev"
                 className="bg-orange-500 cursor-pointer no-underline hover:bg-orange-600 text-white font-bold text-[15px] px-7 py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 fade-in-up delay-600"
               >
                 Lancer un Quick Test Gratuit
-              </a>
+              </Link>
             )}
           </div>
 

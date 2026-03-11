@@ -228,7 +228,7 @@ export default function Home() {
       {/* Transition douce avec linear */}
       <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
-      <Programme setIsLoginModalOpen={setIsLoginModalOpen} />
+      {/* <Programme setIsLoginModalOpen={setIsLoginModalOpen} />
 
       <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
@@ -265,10 +265,10 @@ export default function Home() {
       <div className="h-1 bg-linear-to-r from-transparent via-orange-500/20 to-transparent"></div>
 
       <Cta />
+ */}
 
       <Footer />
-
-      <FloatingBtn />
+      {/* <FloatingBtn /> */}
 
       {/* Modal d'inscription */}
       <div
