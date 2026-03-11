@@ -32,4 +32,4 @@ jobs:
           # local-dir doit se terminer par / pour éviter les erreurs de chemin
           local-dir: ./backend/
           # server-dir DOIT se terminer par / (très important pour cette action)
-          server-dir: ${{ secrets.FTP_BACKEND_URL }}
+          server-dir: ${{ secrets.FTP_BACKEND_URL }}/
