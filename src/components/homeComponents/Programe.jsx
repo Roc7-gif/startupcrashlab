@@ -108,6 +108,7 @@ export default function Programme({ setIsLoginModalOpen }) {
     const phoneRegex = /^\+?[0-9\s-]{8,15}$/;
 
     // Validations successives
+    console.log(email)
     if (!email || !emailRegex.test(email)) {
       return displayError("Veuillez saisir une adresse email valide.");
     }
