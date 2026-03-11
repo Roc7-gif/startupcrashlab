@@ -1,8 +1,8 @@
-import { useAuthStore } from "../../store/authStore";
+// import { useAuthStore } from "../../store/authStore";
 import { Nav } from "./Naavig";
 
 export default function HeroSection({ setIsLoginModalOpen }) {
-  const logout = useAuthStore((state) => state.logout);
+  // const logout = useAuthStore((state) => state.logout);
   const isauth = true;
 
   // console.log(isauth);

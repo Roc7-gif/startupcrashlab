@@ -2,7 +2,8 @@
 import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 // const baseURL = "https://startupcrashlab.pythonanywhere.com/api";
-const baseURL ="http://127.0.0.1:8000/api";
+// const baseURL ="http://127.0.0.1:8000/api";
+const baseURL = "https://startupcrashlab.pythonanywhere.com/api";
 const api = axios.create({
   // baseURL: "https://startupcrashlab.pythonanywhere.com/api",
   baseURL: baseURL,

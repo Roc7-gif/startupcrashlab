@@ -169,6 +169,37 @@ export default function ConfirmationModal({
                 </p>
               </div>
             </div>
+            <p className="text-gray-300 mb-4">{pack?.objective}</p>
+
+            <div className="bg-gray-800 rounded-lg p-4 mb-4">
+              <p className="text-sm font-semibold text-gray-400 mb-2">
+                Délivrables inclus :
+              </p>
+              <ul className="space-y-2">
+                {pack?.deliverables.map((item, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center gap-2 text-gray-300"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className="text-orange-500"
+                    >
+                      <circle cx="8" cy="8" r="4" fill="currentColor" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-sm text-gray-400">
+              Vous recevrez un email de confirmation avec tous les détails du
+              programme.
+            </p>
           </div>
 
           <div className="flex gap-3">

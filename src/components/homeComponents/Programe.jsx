@@ -4,18 +4,14 @@ import { useReservePack } from "../../api/reservationApi";
 import EmailSentMessage from "./EmailSentMessage";
 import Loader from "../others/loader";
 import ErrorDisplayer from "./Error";
-
 export default function Programme({ setIsLoginModalOpen }) {
   const cardsRef = useRef([]);
   const [selectedPack, setSelectedPack] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showEmailSent, setShowEmailSent] = useState(false);
   const [error, setError] = useState("");
-
-  // Références pour les champs du formulaire
-  const DateRef = useRef(null);
-  const PhoneRef = useRef(null);
-  const EmailRef = useRef(null);
+  const DateRef = useRef(null)
+  const PhoneRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,70 +81,59 @@ export default function Programme({ setIsLoginModalOpen }) {
     setSelectedPack(program);
     setIsModalOpen(true);
   };
-
   const { mutate, isPending } = useReservePack();
-  const storeEmail = useAuthStore.getState().email; // Email par défaut si connecté
-
-  // Fonction pour afficher une erreur temporaire
-  const displayError = (message) => {
-    setError(message);
-    setTimeout(() => {
-      setError("");
-    }, 3000);
-  };
-
+  const email = useAuthStore.getState().email;
   const handleConfirm = () => {
-    const date = DateRef.current.value;
-    const phone = PhoneRef.current.value;
-    const email = EmailRef.current.value;
-
-    // Expressions régulières de validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // Accepte les numéros avec ou sans "+", contenant entre 8 et 15 chiffres/espaces
-    const phoneRegex = /^\+?[0-9\s\-]{8,15}$/;
-
-    // Validations successives
-    if (!email || !emailRegex.test(email)) {
-      return displayError("Veuillez saisir une adresse email valide.");
-    }
-
-    if (!phone || !phoneRegex.test(phone)) {
-      return displayError("Veuillez saisir un numéro de téléphone valide.");
-    }
-
-    if (!date) {
-      return displayError("Veuillez choisir une date de réservation.");
-    }
-
-    // Si tout est valide, on lance la mutation
-    mutate(
-      { program: selectedPack, email: email, date: date, phone: phone },
-      {
-        onSuccess: (res) => {
-          if (res.status === "success" || !res.response) {
-            // Adaptation selon le format de ta réponse API
-            setIsModalOpen(false);
-            setShowEmailSent(true);
-            setTimeout(() => {
-              setShowEmailSent(false);
-            }, 3000);
-          } else if (res.response) {
-            const message = res.response?.data?.error || "Erreur Inconnue";
-            displayError(message);
-          }
+    const date = DateRef.current.value; 
+    const phone  = PhoneRef.current.value; 
+    if (date && phone) {
+      
+      mutate(
+        { program: selectedPack, email: email, date: date , phone : phone},
+        {
+          onSuccess: (res) => {
+            // console.log(res.status);
+            if (res.status == "success") {
+              setIsModalOpen(false);
+              setShowEmailSent(true);
+              setTimeout(() => {
+                setShowEmailSent(false);
+              }, 3000);
+            } else if (res.response) {
+              console.log(res.response);
+              const message = res.response?.data?.error || "Erreur Inconnue";
+              setError(message);
+              setTimeout(() => {
+                setError("");
+              }, 3000);
+            } else {
+              const message = "Erreur Réseau ";
+              setError(message);
+              setTimeout(() => {
+                setError("");
+              }, 3000);
+            }
+          },
+          onError: (err) => {
+            const message =
+              // err?.response?.data?.detail || // souvent DRF renvoie {detail: "..."}
+              err.message ||
+              error.request || // fallback
+              "Erreur inconnue";
+            setError(message);
+          },
         },
-        onError: (err) => {
-          const message =
-            err.response?.data?.detail ||
-            err.message ||
-            "Erreur inconnue lors de la réservation";
-          displayError(message);
-        },
-      },
-    );
+      );
+      //
+    } else {
+      setError(' Veuillez saisir votre date de réservation ainsi qui votre numéro de téléphone ')
+        setTimeout(() => {
+                setError("");
+              }, 3000);
+    }
   };
+ const isauth = true
 
-  const isauth = true; // Remplace ça par ta vraie logique d'authentification
 
   return (
     <>
@@ -190,7 +175,7 @@ export default function Programme({ setIsLoginModalOpen }) {
                     className={`absolute inset-0 opacity-0 group-hover:opacity-20 ${program.bgGlow} transition-opacity duration-300`}
                   ></div>
 
-                  {/* En-tête */}
+                  {/* En-tête avec emoji et titre du pack */}
                   <div className="flex items-center gap-3 mb-4 relative z-10">
                     <div
                       className={`text-3xl ${program.iconColor} group-hover:animate-bounce`}
@@ -271,6 +256,7 @@ export default function Programme({ setIsLoginModalOpen }) {
             ))}
           </div>
 
+          {/* Note explicative */}
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-500">
               * Cliquez sur un pack pour recevoir tous les détails par email
@@ -286,140 +272,135 @@ export default function Programme({ setIsLoginModalOpen }) {
       >
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           {selectedPack && (
-            <>
-              <div className="flex justify-between items-start mb-6">
-                <div className="flex items-center gap-3">
-                  <span className="text-4xl">{selectedPack.emoji}</span>
-                  <h2 className="text-2xl font-bold text-white">
-                    Confirmer votre choix
-                  </h2>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="text-gray-400 hover:text-white transition"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M18 6L6 18M6 6l12 12"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
+           <>
+  <div className="flex justify-between items-start mb-6">
+    <div className="flex items-center gap-3">
+      <span className="text-4xl">{selectedPack.emoji}</span>
+      <h2 className="text-2xl font-bold text-white">
+        Confirmer votre choix
+      </h2>
+    </div>
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="text-gray-400 hover:text-white transition"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M18 6L6 18M6 6l12 12"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    </button>
+  </div>
 
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-orange-500 mb-2">
-                  {selectedPack.pack}
-                </h3>
-                <p className="text-gray-300 mb-4">{selectedPack.objective}</p>
+  <div className="mb-6">
+    <h3 className="text-xl font-semibold text-orange-500 mb-2">
+      {selectedPack.pack}
+    </h3>
+    <p className="text-gray-300 mb-4">{selectedPack.objective}</p>
 
-                <div className="bg-gray-800 rounded-lg p-4 mb-4">
-                  <p className="text-sm font-semibold text-gray-400 mb-2">
-                    Délivrables inclus :
-                  </p>
-                  <ul className="space-y-2">
-                    {selectedPack.deliverables.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center gap-2 text-gray-300 text-sm"
-                      >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          className="text-orange-500 flex-shrink-0"
-                        >
-                          <circle cx="8" cy="8" r="4" fill="currentColor" />
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+    <div className="bg-gray-800 rounded-lg p-4 mb-4">
+      <p className="text-sm font-semibold text-gray-400 mb-2">
+        Délivrables inclus :
+      </p>
+      <ul className="space-y-2">
+        {selectedPack.deliverables.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-2 text-gray-300 text-sm"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="text-orange-500 flex-shrink-0"
+            >
+              <circle cx="8" cy="8" r="4" fill="currentColor" />
+            </svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
 
-                <p className="text-sm text-gray-400 mb-4">
-                  Vous recevrez un email avec tous les détails du programme et
-                  la procédure à suivre.
-                </p>
+    <p className="text-sm text-gray-400 mb-4">
+      Vous recevrez un email avec tous les détails du programme et la procédure à suivre.
+    </p>
 
-                <div className="space-y-4 mb-2">
-                  <div>
-                    <label
-                      className="block text-gray-400 text-sm mb-1"
-                      htmlFor="email"
-                    >
-                      Adresse Email
-                    </label>
-                    <input
-                      ref={EmailRef}
-                      type="email"
-                      id="email"
-                      defaultValue={storeEmail} // Pré-remplit avec l'email du store s'il existe
-                      placeholder="votre@email.com"
-                      className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
-                    />
-                  </div>
+    {/* Section Formulaire : Optimisée pour l'espace */}
+    <div className="space-y-4 mb-2">
+      {/* Champ Email (Pleine largeur) */}
+      <div>
+        <label className="block text-gray-400 text-sm mb-1" htmlFor="email">
+          Adresse Email
+        </label>
+        <input
+          /* ref={EmailRef} N'oublie pas de créer cette ref dans ton composant */
+          type="email"
+          id="email"
+          placeholder="votre@email.com"
+          className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
+        />
+      </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        className="block text-gray-400 text-sm mb-1"
-                        htmlFor="phone"
-                      >
-                        Téléphone
-                      </label>
-                      <input
+      {/* Grille pour Téléphone et Date (Côte à côte pour gagner de la place) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-gray-400 text-sm mb-1" htmlFor="phone">
+            Téléphone
+          </label>
+          <input
                         ref={PhoneRef}
                         type="tel"
-                        id="phone"
-                        placeholder="+229..."
-                        className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
-                      />
-                    </div>
+            id="phone"
+            placeholder="+229..."
+            className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-gray-400 text-sm mb-1" htmlFor="reservationDate">
+            Date de réservation
+          </label>
+          <input
+            ref={DateRef}
+            type="date"
+            id="reservationDate"
+            className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 
-                    <div>
-                      <label
-                        className="block text-gray-400 text-sm mb-1"
-                        htmlFor="reservationDate"
-                      >
-                        Date de réservation
-                      </label>
-                      <input
-                        ref={DateRef}
-                        type="date"
-                        id="reservationDate"
-                        className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-500 transition-colors"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-800 transition"
-                >
-                  Annuler
-                </button>
-                <button
-                  onClick={handleConfirm}
-                  className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105 flex justify-center items-center"
-                  disabled={isPending}
-                >
-                  {!isPending ? "Confirmer" : <Loader />}
-                </button>
-              </div>
-            </>
+  <div className="flex gap-3">
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="flex-1 px-4 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-800 transition"
+    >
+      Annuler
+    </button>
+    <button
+      onClick={handleConfirm}
+      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105 flex justify-center items-center"
+      disabled={isPending}
+    >
+      {!isPending ? "Confirmer" : <Loader />}
+    </button>
+  </div>
+</>
           )}
         </div>
       </div>
 
+      {/* Message de confirmation d'envoi */}
       {showEmailSent && <EmailSentMessage />}
       {error && <ErrorDisplayer error={error} />}
+
+      {/* Styles pour les animations */}
     </>
   );
 }

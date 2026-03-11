@@ -20,8 +20,7 @@ export default function EmailSentMessage({  onClose }) {
           <div className="flex-1">
             <p className="font-bold">Email envoyé !</p>
             <p className="text-sm text-green-100">
-              Les informations  ont été envoyées.
-            </p>
+              Les informations  ont été envoyées.         </p>
           </div>
           <button onClick={onClose} className="text-green-100 hover:text-white">
             <svg
