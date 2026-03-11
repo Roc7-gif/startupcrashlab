@@ -5,19 +5,19 @@ on:
     branches:
       - main
 
-      
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Forcer le redémarrage de l'app sur LWS
-      working-directory: backend
-      run: |
-          mkdir -p tmp
-          touch tmp/restart.txt
+   
     - name: Récupérer le code
       uses: actions/checkout@v4
-
+    - name: Forcer le redémarrage de l'app sur LWS
+      working-directory: backend/
+      run: |
+            mkdir -p tmp
+            touch tmp/restart.txt
     - name: Déployer le code Python vers LWS (Dossier /api)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
