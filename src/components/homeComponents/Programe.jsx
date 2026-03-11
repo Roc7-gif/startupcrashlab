@@ -105,7 +105,7 @@ export default function Programme({ setIsLoginModalOpen }) {
     // Expressions régulières de validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // Accepte les numéros avec ou sans "+", contenant entre 8 et 15 chiffres/espaces
-    const phoneRegex = /^\+?[0-9\s\-]{8,15}$/;
+    const phoneRegex = /^\+?[0-9\s-]{8,15}$/;
 
     // Validations successives
     if (!email || !emailRegex.test(email)) {
