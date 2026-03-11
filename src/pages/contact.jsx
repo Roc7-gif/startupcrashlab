@@ -40,7 +40,7 @@ export default function Contact() {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\+?[0-9\s\-]{8,15}$/;
+    const phoneRegex = /^\+?[0-9\s-]{8,15}$/;
 
     if (!formData.name || formData.name.trim().length < 2) {
       displayError("Veuillez saisir un nom valide (minimum 2 caractères).");
@@ -113,7 +113,7 @@ export default function Contact() {
 
       <section
         id="contact"
-        className="py-20 bg-gradient-to-b from-white to-gray-50 min-h-screen"
+        className="py-20 bg-linear-to-b from-white to-gray-50 min-h-screen"
       >
         {/* Éléments décoratifs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -144,7 +144,7 @@ export default function Contact() {
                 <div className="space-y-6">
                   {/* Email */}
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                       <svg
                         className="w-6 h-6 text-orange-600"
                         fill="none"
@@ -172,7 +172,7 @@ export default function Contact() {
 
                   {/* Téléphone */}
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                       <svg
                         className="w-6 h-6 text-orange-600"
                         fill="none"
@@ -200,7 +200,7 @@ export default function Contact() {
 
                   {/* Adresse */}
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                       <svg
                         className="w-6 h-6 text-orange-600"
                         fill="none"
@@ -264,7 +264,7 @@ export default function Contact() {
               </div>
 
               {/* Carte ou information supplémentaire */}
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+              <div className="bg-linear-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
                 <h3 className="text-xl font-bold mb-3">
                   Besoin d'aide immédiate ?
                 </h3>

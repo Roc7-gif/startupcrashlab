@@ -54,22 +54,23 @@ export const Nav = () => {
 
                     {/* Menu Desktop */}
                     <div className="hidden md:flex items-center gap-8">
-                        {currentPath !== "/contact" && (
-                            <>
-                                <NavLink href="/#protocoles" onClick={handleLinkClick}>
+                        <>
+                             <NavLink to="/" onClick={handleLinkClick}>
+                                    Accueil
+                                </NavLink>
+                                <NavLink to="/protocoles" onClick={handleLinkClick}>
                                     Protocoles
                                 </NavLink>
-                                <NavLink href="/#crashIndex" onClick={handleLinkClick}>
+                                <NavLink to="/crashIndex" onClick={handleLinkClick}>
                                     CrashIndex
                                 </NavLink>
-                                <NavLink href="/#ressources" onClick={handleLinkClick}>
+                                <NavLink to="/ressources" onClick={handleLinkClick}>
                                     Ressources
                                 </NavLink>
-                                <NavLink href="/#equipe" onClick={handleLinkClick}>
+                                <NavLink to="/equipes" onClick={handleLinkClick}>
                                     Equipe
                                 </NavLink>
                             </>
-                        )}
                         <NavLink to="/contact" onClick={handleLinkClick} isActive={currentPath === "/contact"}>
                             Contact
                         </NavLink>
@@ -108,26 +109,28 @@ export const Nav = () => {
                 }`} style={{ top: '70px' }}>
                     <div className="flex flex-col h-full p-8 pt-12">
                         <div className="flex flex-col gap-6">
-                            {currentPath !== "/contact" && (
-                                <>
-                                    <MobileNavLink href="/#protocoles" onClick={handleLinkClick} delay={0.1}>
+                            <>
+                                  <MobileNavLink to = '/' onClick={handleLinkClick} delay={0.1}>
+                                        {/* <span className="text-3xl">📋</span> */}
+                                        <span>Accueil</span>
+                                    </MobileNavLink>
+                                    <MobileNavLink to = '/protocoles' onClick={handleLinkClick} delay={0.1}>
                                         {/* <span className="text-3xl">📋</span> */}
                                         <span>Protocoles</span>
                                     </MobileNavLink>
-                                    <MobileNavLink href="/#crashIndex" onClick={handleLinkClick} delay={0.2}>
+                                    <MobileNavLink to="/crashIndex" onClick={handleLinkClick} delay={0.2}>
                                         {/* <span className="text-3xl">📊</span> */}
                                         <span>CrashIndex</span>
                                     </MobileNavLink>
-                                    <MobileNavLink href="/#ressources" onClick={handleLinkClick} delay={0.3}>
+                                    <MobileNavLink to="/ressources" onClick={handleLinkClick} delay={0.3}>
                                         {/* <span className="text-3xl">📚</span> */}
                                         <span>Ressources</span>
                                     </MobileNavLink>
-                                    <MobileNavLink href="/#equipe" onClick={handleLinkClick} delay={0.4}>
+                                    <MobileNavLink to="/equipes" onClick={handleLinkClick} delay={0.4}>
                                         {/* <span className="text-3xl">👥</span> */}
                                         <span>Equipe</span>
                                     </MobileNavLink>
                                 </>
-                            )}
                             <MobileNavLink to="/contact" onClick={handleLinkClick} delay={0.5} isActive={currentPath === "/contact"}>
                                 {/* <span className="text-3xl">📬</span> */}
                                 <span>Contact</span>
