@@ -26,23 +26,23 @@ SECRET_KEY = 'django-insecure-*$**z=s+-3sptkfi!ry22nlj8#p01@95y6#f%d_-5jzer6d7hp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1' , "localhost" , 'startupcrashlab.pythonanywhere.com' , "startupcrushlab.com"]
+ALLOWED_HOSTS = ['127.0.0.1' , "localhost" , 'startupcrashlab.pythonanywhere.com' , "startupcrashlab.com"]
 
 
 # settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.startupcrushlab.com'
+EMAIL_HOST = 'mail.startupcrashlab.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True          # Obligatoire pour le port 465
 EMAIL_USE_TLS = False         # On désactive TLS car on utilise SSL direct
 
-EMAIL_HOST_USER = 'contact@startupcrushlab.com'
+EMAIL_HOST_USER = 'contact@startupcrashlab.com'
 # Utilise une variable d'environnement pour ne pas mettre le pass sur GitHub
 import os
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD_LWS') 
-
-DEFAULT_FROM_EMAIL = 'Startup Crush Lab <contact@startupcrushlab.com>'
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD_LWS')  Ko^lz7*;D?Ly6KpS
+EMAIL_HOST_PASSWORD = "Ko^lz7*;D?Ly6KpS"
+DEFAULT_FROM_EMAIL = 'Startup Crush Lab <contact@startupcrashlab.com>'
 
 
 
@@ -62,7 +62,7 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # React dev server
     "https://startupcrashlab.onrender.com",  # React dev server
-    "http://startupcrushlab.com",  # React dev server
+    "http://startupcrashlab.com",  # React dev server
     # "https://monfrontend.com",  # ton domaine en prod
 ]
 MIDDLEWARE = [

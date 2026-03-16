@@ -113,8 +113,11 @@ export default function Footer() {
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
             <p>
-              © 2024 From Idea to Execution by Igor N. C. SEMANOU. Tous droits
+              © copyright 2026 From Idea to Execution by Igor N. C. SEMANOU. Tous droits
               réservés.
+          </p>
+           <p>
+             By Benilab Services
             </p>
           </div>
         </div>
